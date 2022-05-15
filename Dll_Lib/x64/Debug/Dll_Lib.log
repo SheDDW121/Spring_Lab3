@@ -1,0 +1,8 @@
+﻿  pch.cpp
+  dllmain.cpp
+  Dll_Lib.cpp
+E:\VisualStudio\Projects\Spring_Lab2-Saved\Dll_Lib\Dll_Lib.cpp(61,1): warning C4297: GetMKL: ожидается, что функция не будет выдавать исключения, но она это делает
+E:\VisualStudio\Projects\Spring_Lab2-Saved\Dll_Lib\Dll_Lib.cpp(61,1): message : Функция типа extern "C", указан параметр /EHc
+  Создание кода...
+     Создается библиотека E:\VisualStudio\Projects\Spring_Lab2-Saved\x64\Debug\Dll_Lib.lib и объект E:\VisualStudio\Projects\Spring_Lab2-Saved\x64\Debug\Dll_Lib.exp
+  Dll_Lib.vcxproj -> E:\VisualStudio\Projects\Spring_Lab2-Saved\x64\Debug\Dll_Lib.dll
