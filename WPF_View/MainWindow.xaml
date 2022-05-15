@@ -1,0 +1,102 @@
+﻿<Window x:Class="WPF_View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_View"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="650" Width="1100"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:zz="clr-namespace:ClassLibrary;assembly=ClassLibrary" ResizeMode="NoResize">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="key_EnumFun"
+                        ObjectType="{x:Type system:Enum}"
+                        MethodName="GetValues">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="zz:Spf" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350*"/>
+                <ColumnDefinition Width="450*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column ="0" Height="210" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FFA6FFE1" Margin="20, 5, 0, 0">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Height="214">
+                    <Label Content="Measure Function" FontStyle="Italic" Foreground="Blue"  HorizontalAlignment="Center" ></Label>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource key_EnumFun}}" SelectedItem="{Binding F_Fun}" SelectedIndex="0"></ComboBox>
+                    <TextBlock></TextBlock>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="n = " Foreground="Blue" Width="31"></Label>
+                        <TextBox Text="{Binding Path=M_Data_0, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Height="20" Width="70"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" >
+                        <Label Content="a = " Foreground="Blue" Width="31"></Label>
+                        <TextBox Text="{Binding Path=M_Data_1, ValidatesOnDataErrors=True}" Height="20" Width="70"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" >
+                        <Label Content="b = " Foreground="Blue" Width="31"></Label>
+                        <TextBox Text="{Binding Path=M_Data_2, ValidatesOnDataErrors=True}" Height="20" Width="70"/>
+                    </StackPanel>
+                    <Label Content="Type of nodes on x axis" FontStyle="Italic" Foreground="Blue" Height="25" FontSize="12"></Label>
+                    <Grid>
+                        <RadioButton Content="Uniform" IsChecked="True"  FontSize="10" HorizontalAlignment="Left" VerticalAlignment="Top" Width="69"/>
+                        <RadioButton Content="Random" IsChecked="{Binding not_Uniform}" FontSize="10" HorizontalAlignment="Left" Margin="65,0,0,0" VerticalAlignment="Center"/>
+                    </Grid>
+                    <TextBlock Height="7"></TextBlock>
+                    <Button Height="20" Content="Make MeasuredData" Command ="{Binding MakeMeasureCommand}"  />
+                </StackPanel>
+            </Grid>
+            <StackPanel Grid.Column="0" Height="400" Width="200" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                <Label Content="MeasuredData" FontStyle="Italic" Foreground="Blue" HorizontalAlignment="Center"></Label>
+                <ListBox ItemsSource="{Binding Measured_Items}" Margin="10, 0, 0, 20" Height="350" ></ListBox>
+            </StackPanel>
+            <Grid Name="OxyPlot" Grid.Column="1">
+                <oxy:PlotView Model="{Binding OxyPlot_D.plotModel}"></oxy:PlotView>
+            </Grid>
+
+            <StackPanel Name="Spline_Par" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Right" Height="210" Margin="0, 5, 50, 0" Background="#FFD3FFCC" Width="150">
+                <Label Content="Spline Parametres" FontStyle="Italic" Foreground="Blue" HorizontalAlignment="Center" ></Label>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="n = " Foreground="Blue" Width="31"></Label>
+                    <TextBox Name="Spline_N" Text="{Binding Path=nx_spl, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Height="20" Width="70"/>
+                </StackPanel>
+
+                <TextBlock></TextBlock>
+                <Label Content="Integral Parametres" FontStyle="Italic" Foreground="Blue" HorizontalAlignment="Center" ></Label>
+
+                <StackPanel Orientation="Horizontal" >
+                    <Label Content="x1 = " Foreground="Blue" Width="31"></Label>
+                    <TextBox Name="X_1" Text="{Binding Path=Sp_I_0, ValidatesOnDataErrors=True}" Height="20" Width="70"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" >
+                    <Label Content="x2 = " Foreground="Blue" Width="31"></Label>
+                    <TextBox Name="X_2" Text="{Binding Path=Sp_I_1, ValidatesOnDataErrors=True}" Height="20" Width="70"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" >
+                    <Label Content="x3 = " Foreground="Blue" Width="31"></Label>
+                    <TextBox Name="X_3" Text="{Binding Path=Sp_I_2, ValidatesOnDataErrors=True}" Height="20" Width="70"/>
+                </StackPanel>
+
+                <TextBlock Height="7"></TextBlock>
+                <Button Height="20" Content="Make Spline" Command="{Binding MakeSplineCommand}" />
+
+                <TextBlock Height="50"></TextBlock>
+            </StackPanel>
+
+            <StackPanel Grid.Column="0" Height="400" Width="200" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0, 0, 30, 0">
+                <Label Content="SplineData" FontStyle="Italic" Foreground="Blue" HorizontalAlignment="Center"></Label>
+                <ListBox ItemsSource="{Binding Spline_Der}" Margin="10, 0, 0, 20" Height="350" ></ListBox>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
